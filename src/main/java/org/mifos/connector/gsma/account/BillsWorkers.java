@@ -57,6 +57,8 @@ public class BillsWorkers {
                     exchange.setProperty(BILLS_ACTION, "payment");
 
                     TransactionChannelRequestDTO channelRequest = objectMapper.readValue(exchange.getProperty(CHANNEL_REQUEST, String.class), TransactionChannelRequestDTO.class);
+                    String payeeIdentifier = channelRequest.getPayee().getPartyIdInfo().getPartyIdentifier();
+                    logger.debug("Payee Identifier : {}", payeeIdentifier);
                     exchange.setProperty(BILL_REFERENCE, channelRequest.getPayee().getPartyIdInfo().getPartyIdentifier());
                     exchange.setProperty(IDENTIFIER_TYPE, channelRequest.getPayer().getPartyIdInfo().getPartyIdType());
                     exchange.setProperty(IDENTIFIER, channelRequest.getPayer().getPartyIdInfo().getPartyIdentifier());
@@ -92,6 +94,8 @@ public class BillsWorkers {
                     exchange.setProperty(BILLS_ACTION, "bills");
 
                     TransactionChannelRequestDTO channelRequest = objectMapper.readValue(exchange.getProperty(CHANNEL_REQUEST, String.class), TransactionChannelRequestDTO.class);
+                    String payeeIdentifier = channelRequest.getPayee().getPartyIdInfo().getPartyIdentifier();
+                    logger.debug("Payee Identifier : {}", payeeIdentifier);
                     exchange.setProperty(BILL_REFERENCE, channelRequest.getPayee().getPartyIdInfo().getPartyIdentifier());
                     exchange.setProperty(IDENTIFIER_TYPE, channelRequest.getPayer().getPartyIdInfo().getPartyIdType());
                     exchange.setProperty(IDENTIFIER, channelRequest.getPayer().getPartyIdInfo().getPartyIdentifier());

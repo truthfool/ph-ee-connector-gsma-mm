@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.Instant;
 import java.util.Map;
 
+import static org.mifos.connector.gsma.zeebe.ZeebeVariables.ORIGIN_DATE;
 import static org.mifos.connector.gsma.zeebe.ZeebeVariables.QUOTE_SWITCH_RESULT;
 
 @Component
@@ -52,6 +54,7 @@ public class ZeebeeWorkers {
                     quoteRequest.setAmountType(AmountType.SEND);
 
                     variables.put(QUOTE_SWITCH_RESULT, quoteRequest);
+                    variables.put(ORIGIN_DATE, Instant.now().toEpochMilli());
                     zeebeProcessStarter.startZeebeWorkflow("gsma_payee_process", variables);
 
                     client.newCompleteCommand(job.getKey())
